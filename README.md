@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="reports/mlops_platform_banner.jpg" alt="Predictive MLOps Platform" width="100%" style="border-radius: 10px; margin-bottom: 20px;" />
+</div>
+
 # 🚢 Predictive MLOps Platform: Real-Time Serving, XAI, Stacking Ensemble & Drift Monitoring System
 ### *Sistema de Grado de Producción para Modelado Predictivo, Inferencia Atómica Contenerizada y Gobernanza MLOps*
 
