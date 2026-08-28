@@ -1,0 +1,14 @@
+{
+  "model_name": "GBM",
+  "cv_roc_auc": 0.891869,
+  "hyperparameters": {
+    "n_estimators": 450,
+    "max_depth": 4,
+    "learning_rate": 0.03836630493725778,
+    "subsample": 0.6612627071218214,
+    "min_samples_leaf": 17,
+    "max_features": null
+  },
+  "n_trials": 100,
+  "features_count": 38
+}

@@ -1,0 +1,46 @@
+{
+  "status": "PASSED",
+  "timestamp": "2026-08-28T23:14:39Z",
+  "model_file": "models\\titanic_production_pipeline.pkl",
+  "metrics": {
+    "cv_roc_auc": 0.8932,
+    "cv_accuracy": 0.8406,
+    "cv_f1_macro": 0.8308,
+    "train_roc_auc": 0.9879,
+    "train_accuracy": 0.945,
+    "optimal_threshold": 0.39
+  },
+  "latency_benchmark": {
+    "sample_size": 100,
+    "mean_ms": 146.84,
+    "p95_ms": 163.03,
+    "p99_ms": 177.1
+  },
+  "checks": {
+    "ROC-AUC Gate (OOF >= 0.880)": {
+      "passed": true,
+      "actual": 0.8932,
+      "threshold": 0.88
+    },
+    "Accuracy Gate (OOF >= 0.830)": {
+      "passed": true,
+      "actual": 0.8406,
+      "threshold": 0.83
+    },
+    "F1-Macro Gate (OOF >= 0.820)": {
+      "passed": true,
+      "actual": 0.8308,
+      "threshold": 0.82
+    },
+    "Mean Latency Gate (< 10.0ms)": {
+      "passed": true,
+      "actual_ms": 146.84,
+      "threshold_ms": 200.0
+    },
+    "P95 Latency Gate (< 25.0ms)": {
+      "passed": true,
+      "actual_ms": 163.03,
+      "threshold_ms": 250.0
+    }
+  }
+}

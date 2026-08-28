@@ -1,0 +1,17 @@
+[
+  "Age",
+  "Fare",
+  "FamilySize",
+  "FarePerPerson",
+  "TicketFrequency",
+  "Pclass_Sex_Interaction",
+  "TicketPrefix_TE",
+  "CabinDeck_TE",
+  "Title_TE",
+  "Embarked_TE",
+  "Embarked_Q",
+  "CabinDeck_D",
+  "CabinDeck_G",
+  "Pclass_3",
+  "FareBin_Q2"
+]

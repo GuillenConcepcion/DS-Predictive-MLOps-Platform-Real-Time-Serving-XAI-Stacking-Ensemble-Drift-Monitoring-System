@@ -1,0 +1,33 @@
+{
+  "model_name": "Titanic_Stacking_Classifier_L2",
+  "meta_learner": "LogisticRegression(C=0.1)",
+  "cv_accuracy": 0.8406,
+  "cv_f1_macro": 0.8308,
+  "cv_roc_auc": 0.8932,
+  "optimal_threshold": 0.39,
+  "rfecv_features_count": 15,
+  "selected_features": [
+    "Age",
+    "Fare",
+    "FamilySize",
+    "FarePerPerson",
+    "TicketFrequency",
+    "Pclass_Sex_Interaction",
+    "TicketPrefix_TE",
+    "CabinDeck_TE",
+    "Title_TE",
+    "Embarked_TE",
+    "Embarked_Q",
+    "CabinDeck_D",
+    "CabinDeck_G",
+    "Pclass_3",
+    "FareBin_Q2"
+  ],
+  "meta_intercept": -2.1345542402348023,
+  "meta_coefs": [
+    1.389134738856449,
+    1.1699239765643585,
+    1.4117914185752907
+  ],
+  "pipeline_path": "models\\titanic_production_pipeline.pkl"
+}

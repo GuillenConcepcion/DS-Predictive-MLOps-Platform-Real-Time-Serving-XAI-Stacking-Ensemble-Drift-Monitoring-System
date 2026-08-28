@@ -1,0 +1,96 @@
+{
+  "total_passengers": 891,
+  "survivors_count": 342,
+  "perished_count": 549,
+  "overall_survival_rate": 38.38,
+  "avg_age": 29.7,
+  "avg_fare": 32.2,
+  "median_fare": 14.45,
+  "gender_pclass_survival": [
+    {
+      "Pclass": 1,
+      "Sex": "female",
+      "count": 94,
+      "mean": 0.9680851063829787,
+      "survival_pct": 96.8
+    },
+    {
+      "Pclass": 1,
+      "Sex": "male",
+      "count": 122,
+      "mean": 0.36885245901639346,
+      "survival_pct": 36.9
+    },
+    {
+      "Pclass": 2,
+      "Sex": "female",
+      "count": 76,
+      "mean": 0.9210526315789473,
+      "survival_pct": 92.1
+    },
+    {
+      "Pclass": 2,
+      "Sex": "male",
+      "count": 108,
+      "mean": 0.1574074074074074,
+      "survival_pct": 15.7
+    },
+    {
+      "Pclass": 3,
+      "Sex": "female",
+      "count": 144,
+      "mean": 0.5,
+      "survival_pct": 50.0
+    },
+    {
+      "Pclass": 3,
+      "Sex": "male",
+      "count": 347,
+      "mean": 0.13544668587896252,
+      "survival_pct": 13.5
+    }
+  ],
+  "embarked_survival": [
+    {
+      "Embarked_Name": "Cherbourg",
+      "total": 168,
+      "survival_rate": 55.4,
+      "avg_fare": 59.95
+    },
+    {
+      "Embarked_Name": "Queenstown",
+      "total": 77,
+      "survival_rate": 39.0,
+      "avg_fare": 13.28
+    },
+    {
+      "Embarked_Name": "Southampton",
+      "total": 644,
+      "survival_rate": 33.7,
+      "avg_fare": 27.08
+    },
+    {
+      "Embarked_Name": "Unknown",
+      "total": 2,
+      "survival_rate": 100.0,
+      "avg_fare": 80.0
+    }
+  ],
+  "family_survival": [
+    {
+      "FamilyGroup": "Solitario (1)",
+      "total": 537,
+      "survival_rate": 30.4
+    },
+    {
+      "FamilyGroup": "Familia Pequeña (2-4)",
+      "total": 292,
+      "survival_rate": 57.9
+    },
+    {
+      "FamilyGroup": "Familia Grande (5+)",
+      "total": 62,
+      "survival_rate": 16.1
+    }
+  ]
+}

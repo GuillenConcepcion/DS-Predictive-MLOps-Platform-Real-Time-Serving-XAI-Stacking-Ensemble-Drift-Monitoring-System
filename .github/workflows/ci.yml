@@ -1,0 +1,65 @@
+name: Predictive MLOps Platform CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-typecheck:
+    name: Code Quality & Type Safety
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Lint with Ruff
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+
+      - name: Typecheck with mypy
+        run: uv run mypy src/
+
+  test-and-gate:
+    name: Pytest Suite & Performance Regression Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system dependencies (OpenMP)
+        run: sudo apt-get update && sudo apt-get install -y libgomp1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Run Full Pytest Suite (27 tests)
+        run: uv run pytest --cov=src --cov-report=xml --cov-report=term-missing tests/
+
+      - name: Run Performance & Quality Regression Gate
+        run: uv run python src/models/performance_gate.py
+
+      - name: Upload Performance Gate Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-gate-report
+          path: reports/performance_gate_report.json
