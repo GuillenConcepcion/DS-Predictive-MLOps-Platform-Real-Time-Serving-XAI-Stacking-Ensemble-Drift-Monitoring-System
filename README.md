@@ -59,7 +59,67 @@ Este proyecto nace con la misión de ser un **Framework Canónico y Arquitectura
 
 ---
 
-## 🏛 2. Arquitectura del Pipeline Atómico de Producción
+## 🏗️ 2. Arquitectura y Flujo del Stack Tecnológico (End-to-End MLOps Pipeline)
+
+A continuación se detalla el flujo integral de datos, algoritmos, herramientas y gobernanza que conectan cada capa de la plataforma:
+
+```mermaid
+flowchart TD
+    %% Styling and Classes
+    classDef dataLayer fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef featLayer fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
+    classDef modelLayer fill:#1e1b4b,stroke:#c084fc,stroke-width:2px,color:#f8fafc;
+    classDef opsLayer fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+    classDef serveLayer fill:#1c1917,stroke:#f59e0b,stroke-width:2px,color:#f8fafc;
+    classDef monitorLayer fill:#31102b,stroke:#f43f5e,stroke-width:2px,color:#f8fafc;
+
+    subgraph L1[" Capa 1: Ingestión & Diagnóstico Estadístico "]
+        RAW["📥 Datos Crudos (Train / Test CSV)"]:::dataLayer
+        MCAR["🔬 Little's MCAR Test (1988)<br/>(Chi-Square EM, p = 2.84e-7)"]:::dataLayer
+        KNN["🧩 Imputación Multivariada KNN<br/>+ MissingIndicators"]:::dataLayer
+    end
+
+    subgraph L2[" Capa 2: Feature Engineering & Selección Élite "]
+        FEAT["⚙️ Extracción de Títulos, Decks y Bins"]:::featLayer
+        BTE["🎯 Bayesian Target Encoding OOF<br/>(m-estimate, m=10.0)"]:::featLayer
+        RFECV["✂️ RFECV Feature Selection<br/>(38 -> 14 Variables Élite)"]:::featLayer
+    end
+
+    subgraph L3[" Capa 3: Modelado, Optimización & Ensamble Stacking "]
+        OPTUNA["🔍 Optuna Bayesian Tuning<br/>(TPE Sampler, 100 trials)"]:::modelLayer
+        BASE["🌲 Modelos Base de Nivel 1<br/>(GradientBoosting + LightGBM + XGBoost)"]:::modelLayer
+        STACK["🧠 Stacking Meta-Learner L2<br/>(Logistic Regression, C=0.1)"]:::modelLayer
+        CALIB["📐 Isotonic Calibration (PAVA)<br/>(5-Fold Stratified CV, ROC-AUC: 89.32%)"]:::modelLayer
+    end
+
+    subgraph L4[" Capa 4: Gobernanza MLOps, Calidad & CI/CD "]
+        SHAP["🔍 Explicabilidad XAI (SHAP TreeExplainer)"]:::opsLayer
+        MLFLOW["📦 MLflow Registry<br/>(Champion / Challenger @champion)"]:::opsLayer
+        PIPELINE["📦 Pipeline Serializado Atómico<br/>(titanic_production_pipeline.pkl)"]:::opsLayer
+        CICD["🚦 GitHub Actions CI/CD Gate<br/>(Ruff + Mypy + 27 Pytests + Performance Gate)"]:::opsLayer
+    end
+
+    subgraph L5[" Capa 5: Serving en Tiempo Real, Contenerización & Observabilidad "]
+        SCHEMA["🛡️ Contratos Pydantic V2<br/>(@field_validator + @model_validator)"]:::serveLayer
+        FASTAPI["⚡ FastAPI Inferencia Microservice<br/>(POST /predict, POST /predict/batch)"]:::serveLayer
+        PODMAN["🐳 Contenerización Cloud-Native<br/>(Podman Rootless, uv, UID 10001)"]:::serveLayer
+        DRIFT["📊 Monitoreo de Prediction & Data Drift<br/>(KS-Test, PSI, Wasserstein, TVD)"]:::monitorLayer
+        DASH["📈 Dashboards HTML5 en Tiempo Real<br/>(GET /monitoring/drift/dashboard)"]:::monitorLayer
+    end
+
+    %% Flow Connections
+    RAW --> MCAR --> KNN --> FEAT --> BTE --> RFECV
+    RFECV --> OPTUNA --> BASE --> STACK --> CALIB
+    CALIB --> SHAP & MLFLOW --> PIPELINE
+    PIPELINE --> CICD
+    CICD --> PODMAN --> FASTAPI
+    SCHEMA --> FASTAPI
+    FASTAPI --> DRIFT --> DASH
+```
+
+---
+
+## 🏛 3. Arquitectura del Pipeline Atómico de Producción
 
 Todo el ciclo de transformación, filtrado de variables e inferencia calibrada está encapsulado en un único artefacto serializado: [`models/titanic_production_pipeline.pkl`](models/titanic_production_pipeline.pkl):
 
